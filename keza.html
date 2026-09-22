@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="MONOCOQUE — precision chassis assembly for F1, F2 and F3 motorsport programs." />
+    <title>MONOCOQUE | Formula Assembly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #040507;
+        --bg-soft: #0d0f13;
+        --panel: rgba(17, 18, 22, 0.88);
+        --panel-strong: rgba(22, 23, 28, 0.96);
+        --line: rgba(255, 255, 255, 0.12);
+        --line-strong: rgba(225, 6, 0, 0.5);
+        --text: #edf1f7;
+        --muted: #a1acba;
+        --red: #e10600;
+        --red-soft: rgba(225, 6, 0, 0.18);
+        --shadow: rgba(225, 6, 0, 0.28);
+        --maxw: 1240px;
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(225, 6, 0, 0.18), transparent 30%),
+          radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.06), transparent 24%),
+          var(--bg);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+        background-size: 32px 32px;
+        mask-image: radial-gradient(circle at center, black, transparent 88%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      img, svg { display: block; max-width: 100%; }
+      a { color: inherit; text-decoration: none; }
+      button, input, textarea { font: inherit; }
+
+      .site-shell {
+        position: relative;
+        z-index: 1;
+      }
+
+      .container {
+        width: min(var(--maxw), calc(100% - 32px));
+        margin-inline: auto;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(4, 5, 7, 0.6);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 80px;
+        gap: 20px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.5rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      .brand-mark {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 20px rgba(225, 6, 0, 0.8);
+        position: relative;
+      }
+
+      .brand-mark::before {
+        content: "";
+        position: absolute;
+        inset: -8px;
+        border: 1px solid rgba(225, 6, 0, 0.6);
+        border-radius: 50%;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: clamp(18px, 2vw, 36px);
+      }
+
+      .nav a {
+        color: var(--muted);
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        transition: color 0.3s ease;
+      }
+
+      .nav a:hover,
+      .nav a:focus-visible {
+        color: var(--text);
+      }
+
+      .header-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 46px;
+        padding: 0 20px;
+        border: 1px solid rgba(225, 6, 0, 0.45);
+        background: rgba(225, 6, 0, 0.09);
+        color: var(--text);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      }
+
+      .header-cta:hover,
+      .header-cta:focus-visible,
+      .button:hover,
+      .button:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 34px var(--shadow);
+        background: rgba(225, 6, 0, 0.16);
+      }
+
+      .hero {
+        position: relative;
+        padding: 42px 0 40px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.03fr 0.97fr;
+        align-items: center;
+        gap: clamp(28px, 4vw, 60px);
+        min-height: calc(100vh - 80px);
+      }
+
+      .eyebrow {
+        margin: 0 0 16px;
+        color: var(--red);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
+      h1, h2, h3, .display {
+        margin: 0;
+        font-family: 'Rajdhani', sans-serif;
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(4rem, 8vw, 7.8rem);
+        line-height: 0.82;
+        max-width: 620px;
+      }
+
+      .hero-copy h1 .accent {
+        color: var(--red);
+        text-shadow: 0 0 28px rgba(225, 6, 0, 0.35);
+      }
+
+      .hero-copy p.lead {
+        max-width: 560px;
+        margin: 22px 0 0;
+        color: var(--muted);
+        font-size: 1.06rem;
+        line-height: 1.8;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-top: 28px;
+      }
+
+      .button {
+        --btn-bg: transparent;
+        position: relative;
+        isolation: isolate;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        min-height: 54px;
+        padding: 0 26px;
+        border: 1px solid rgba(255, 255, 255, 0.13);
+        background: var(--btn-bg);
+        color: var(--text);
+        font-size: 0.76rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+        overflow: hidden;
+      }
+
+      .button::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(225,6,0,0.16), rgba(255,255,255,0.02));
+        transform: translateX(-100%);
+        transition: transform 0.4s ease;
+      }
+
+      .button:hover::before,
+      .button:focus-visible::before {
+        transform: translateX(100%);
+      }
+
+      .button.primary {
+        --btn-bg: rgba(225, 6, 0, 0.12);
+        border-color: rgba(225, 6, 0, 0.7);
+      }
+
+      .button.secondary {
+        background: rgba(255,255,255,0.01);
+      }
+
+      .mini-metrics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-top: 38px;
+      }
+
+      .mini-metrics .metric {
+        min-width: 150px;
+      }
+
+      .mini-metrics strong {
+        display: block;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: clamp(1.7rem, 3vw, 2.2rem);
+        color: var(--text);
+        line-height: 1;
+      }
+
+      .mini-metrics span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .hero-visual {
+        position: relative;
+      }
+
+      .visual-card {
+        position: relative;
+        padding: 18px 18px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(180deg, rgba(15,16,20,0.94), rgba(10,11,14,0.82));
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+      }
+
+      .visual-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 6px 8px 14px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        color: var(--muted);
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .dots {
+        display: flex;
+        gap: 8px;
+      }
+
+      .dots span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+
+      .dots span:nth-child(1) { background: #ff5f57; }
+      .dots span:nth-child(2) { background: #ffbd2f; }
+      .dots span:nth-child(3) { background: #2bc840; }
+
+      .car-wrap {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-height: 460px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at center, rgba(225, 6, 0, 0.12), rgba(225, 6, 0, 0) 45%),
+          linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+      }
+
+      .car-wrap::before,
+      .car-wrap::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 20px 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(225, 6, 0, 0.7), transparent);
+      }
+
+      .car-wrap::after {
+        inset: 42px 18px auto 18px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
+      }
+
+      .car-svg {
+        width: min(100%, 760px);
+        transform: perspective(1200px) rotateX(10deg) translateY(10px);
+        animation: carFloat 4.8s ease-in-out infinite;
+      }
+
+      .car-svg .ground-glow {
+        fill: rgba(225, 6, 0, 0.18);
+        filter: blur(16px);
+      }
+
+      .car-svg .outline {
+        fill: none;
+        stroke: rgba(255,255,255,0.1);
+        stroke-width: 1.1;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .car-svg .body-main {
+        fill: url(#bodyMainGradient);
+        stroke: rgba(255,255,255,0.12);
+        stroke-width: 1.2;
+        filter: drop-shadow(0 22px 28px rgba(0,0,0,0.38));
+      }
+
+      .car-svg .body-accent {
+        fill: rgba(225, 6, 0, 0.95);
+        filter: drop-shadow(0 0 12px rgba(225, 6, 0, 0.6));
+      }
+
+      .car-svg .body-detail {
+        fill: rgba(8, 8, 10, 0.94);
+      }
+
+      .car-svg .glass {
+        fill: rgba(164, 186, 255, 0.16);
+        stroke: rgba(204, 223, 255, 0.26);
+        stroke-width: 1.1;
+      }
+
+      .car-svg .rim {
+        fill: rgba(14, 14, 14, 0.96);
+        stroke: rgba(255,255,255,0.18);
+        stroke-width: 1.1;
+      }
+
+      .car-svg .rim-inner {
+        fill: rgba(201, 201, 201, 0.08);
+        stroke: rgba(255,255,255,0.12);
+        stroke-width: 1.1;
+      }
+
+      .car-svg .primary {
+        fill: none;
+        stroke: rgba(255,255,255,0.18);
+        stroke-width: 1.9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .car-svg .secondary {
+        fill: none;
+        stroke: rgba(255,255,255,0.12);
+        stroke-width: 1.1;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .car-svg .dot {
+        fill: var(--red);
+        opacity: 0;
+        animation: pulseDot 0.8s ease forwards 2.8s;
+      }
+
+      @keyframes drawCar {
+        0% { stroke-dashoffset: 1500; opacity: 0; }
+        20% { opacity: 1; }
+        100% { stroke-dashoffset: 0; opacity: 1; }
+      }
+
+      @keyframes pulseDot {
+        0% { opacity: 0; transform: scale(0.6); }
+        60% { opacity: 1; transform: scale(1.3); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+
+      @keyframes carFloat {
+        0%, 100% { transform: perspective(1200px) rotateX(10deg) translateY(10px); }
+        50% { transform: perspective(1200px) rotateX(8deg) translateY(-6px); }
+      }
+
+      .telemetry {
+        display: grid;
+        gap: 14px;
+        padding: 10px 12px 0;
+      }
+
+      .telemetry-row {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 14px;
+        color: var(--muted);
+        font-size: 0.66rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .telemetry-bar {
+        position: relative;
+        height: 8px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.02);
+        overflow: hidden;
+      }
+
+      .telemetry-bar span {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: var(--bar-width);
+        background: linear-gradient(90deg, rgba(225,6,0,0.2), rgba(225,6,0,1));
+        box-shadow: 0 0 18px rgba(225, 6, 0, 0.6);
+      }
+
+      .ticker {
+        position: relative;
+        overflow: hidden;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        background: rgba(255,255,255,0.01);
+      }
+
+      .ticker-track {
+        display: flex;
+        width: max-content;
+        gap: 32px;
+        white-space: nowrap;
+        padding: 20px 0;
+        animation: marquee 28s linear infinite;
+        color: rgba(255,255,255,0.74);
+        font-size: 0.8rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+      }
+
+      .ticker-track span::before {
+        content: "•";
+        color: var(--red);
+        margin-right: 32px;
+      }
+
+      @keyframes marquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+      }
+
+      .section {
+        padding: 110px 0 0;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 40px;
+      }
+
+      .section-title {
+        max-width: 700px;
+        font-size: clamp(2.4rem, 5vw, 4rem);
+        line-height: 0.94;
+      }
+
+      .section-head p {
+        max-width: 400px;
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .three-col {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .info-card {
+        position: relative;
+        padding: 28px 22px 22px;
+        background: linear-gradient(180deg, rgba(14,15,19,0.92), rgba(10,11,14,0.9));
+        border: 1px solid rgba(255,255,255,0.07);
+        min-height: 260px;
+        transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .info-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(225,6,0,0.35);
+        box-shadow: 0 14px 30px rgba(0,0,0,0.2);
+      }
+
+      .info-card .index {
+        color: var(--red);
+        font-size: 0.76rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .info-card h3 {
+        margin-top: 18px;
+        font-size: clamp(1.7rem, 2vw, 2.2rem);
+      }
+
+      .info-card p {
+        margin: 18px 0 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .capability-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 28px;
+      }
+
+      .stack-panel {
+        padding: 24px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(8,9,12,0.9);
+      }
+
+      .stack-panel h3 {
+        font-size: clamp(2rem, 3vw, 3rem);
+        margin-bottom: 18px;
+      }
+
+      .stack-list {
+        display: grid;
+        gap: 16px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .stack-list li {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        color: var(--muted);
+      }
+
+      .stack-list li::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 14px rgba(225, 6, 0, 0.7);
+      }
+
+      .capability-cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .capability-card {
+        position: relative;
+        padding: 28px 22px 24px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: linear-gradient(180deg, rgba(15,16,20,0.9), rgba(9,10,12,0.95));
+        overflow: hidden;
+      }
+
+      .capability-card::after {
+        content: "";
+        position: absolute;
+        inset: auto auto -40px -40px;
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(225, 6, 0, 0.28), transparent 70%);
+      }
+
+      .capability-card .tag {
+        display: inline-flex;
+        padding: 8px 10px;
+        border: 1px solid rgba(225,6,0,0.4);
+        background: rgba(225,6,0,0.08);
+        color: var(--red);
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .capability-card h4 {
+        margin-top: 22px;
+        font-size: clamp(1.4rem, 2vw, 2rem);
+      }
+
+      .capability-card p {
+        margin: 14px 0 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .process-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .process-step {
+        position: relative;
+        padding: 28px 22px 22px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(13,14,18,0.92);
+      }
+
+      .process-step::before {
+        content: attr(data-step);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border: 1px solid rgba(225,6,0,0.45);
+        background: rgba(225,6,0,0.08);
+        color: var(--red);
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+
+      .process-step h4 {
+        margin-top: 20px;
+        font-size: clamp(1.5rem, 2vw, 2.1rem);
+      }
+
+      .process-step p {
+        margin: 14px 0 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .stats-band {
+        padding: 24px 0 8px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0,1fr));
+        gap: 18px;
+      }
+
+      .stat-box {
+        padding: 30px 22px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: linear-gradient(180deg, rgba(18,19,22,0.9), rgba(7,8,10,0.9));
+        text-align: center;
+      }
+
+      .stat-box .count {
+        font-family: 'Rajdhani', sans-serif;
+        font-size: clamp(2.8rem, 4vw, 4rem);
+        line-height: 1;
+        color: var(--text);
+      }
+
+      .stat-box .count .unit {
+        color: var(--red);
+      }
+
+      .stat-box span {
+        display: block;
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .series-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .series-card {
+        position: relative;
+        padding: 28px 22px 24px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: linear-gradient(180deg, rgba(17,18,22,0.9), rgba(8,9,12,0.96));
+        overflow: hidden;
+      }
+
+      .series-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--red), transparent);
+      }
+
+      .series-card .badge {
+        color: var(--red);
+        font-size: 0.66rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .series-card h3 {
+        font-size: clamp(2rem, 3vw, 3rem);
+        margin-top: 16px;
+      }
+
+      .series-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 18px 0 0;
+        display: grid;
+        gap: 8px;
+      }
+
+      .series-card li {
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        padding-bottom: 10px;
+      }
+
+      .series-card li strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      .contact-wrap {
+        display: grid;
+        grid-template-columns: 0.92fr 1.08fr;
+        gap: 28px;
+        padding: 0 0 80px;
+      }
+
+      .contact-copy {
+        position: relative;
+        padding: 32px 26px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: linear-gradient(180deg, rgba(15,16,20,0.95), rgba(9,11,14,0.95));
+      }
+
+      .contact-copy h3 {
+        font-size: clamp(2.4rem, 5vw, 4rem);
+      }
+
+      .contact-copy p {
+        margin: 18px 0 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .contact-meta {
+        display: grid;
+        gap: 16px;
+        margin-top: 28px;
+      }
+
+      .contact-meta div {
+        display: grid;
+        gap: 4px;
+      }
+
+      .contact-meta span {
+        color: var(--red);
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .contact-meta strong {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .contact-form {
+        display: grid;
+        gap: 18px;
+        padding: 28px 22px 22px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(11,12,16,0.96);
+      }
+
+      .field-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 18px;
+      }
+
+      .field {
+        display: grid;
+        gap: 10px;
+      }
+
+      .field label {
+        color: var(--muted);
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .field input,
+      .field textarea {
+        width: 100%;
+        border: 1px solid rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.02);
+        color: var(--text);
+        padding: 14px 16px;
+        resize: vertical;
+        min-height: 52px;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .field input:focus,
+      .field textarea:focus {
+        outline: none;
+        border-color: rgba(225,6,0,0.6);
+        box-shadow: 0 0 0 3px rgba(225,6,0,0.12);
+      }
+
+      .submit-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-top: 6px;
+      }
+
+      .form-status {
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .footer {
+        border-top: 1px solid rgba(255,255,255,0.08);
+        padding: 20px 0 42px;
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        color: var(--muted);
+      }
+
+      .footer-copy {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+      }
+
+      .footer-links {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .cursor {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 18px;
+        height: 18px;
+        border: 1px solid rgba(255,255,255,0.75);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1000;
+        mix-blend-mode: screen;
+        transform: translate(-50%, -50%);
+        transition: width 0.15s ease, height 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+      }
+
+      .cursor.active {
+        width: 48px;
+        height: 48px;
+        background: rgba(225,6,0,0.14);
+        border-color: rgba(225,6,0,0.9);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 1024px) {
+        .hero-grid,
+        .capability-grid,
+        .contact-wrap,
+        .series-grid,
+        .three-col,
+        .process-grid,
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .hero-grid {
+          grid-template-columns: 1fr;
+          min-height: auto;
+          padding-top: 18px;
+        }
+
+        .hero-copy {
+          order: 1;
+        }
+
+        .hero-visual {
+          order: 2;
+        }
+
+        .process-grid,
+        .series-grid,
+        .three-col {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .nav {
+          display: none;
+        }
+
+        .section {
+          padding-top: 84px;
+        }
+
+        .section-head,
+        .footer-inner,
+        .submit-row {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .three-col,
+        .capability-cards,
+        .process-grid,
+        .stats-grid,
+        .series-grid,
+        .field-row,
+        .contact-wrap,
+        .capability-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-copy h1 {
+          font-size: 3.7rem;
+        }
+
+        .mini-metrics {
+          gap: 14px;
+        }
+
+        .site-header {
+          position: sticky;
+        }
+
+        .cursor {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+</head>
+<body>
+    <div class="cursor" aria-hidden="true"></div>
+
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="container header-inner">
+          <a href="#top" class="brand" aria-label="MONOCOQUE home">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>MONOCOQUE</span>
+          </a>
+
+          <nav class="nav" aria-label="Main navigation">
+            <a href="#about">About</a>
+            <a href="#capabilities">Capabilities</a>
+            <a href="#process">Process</a>
+            <a href="#series">Series</a>
+            <a href="#contact">Contact</a>
+          </nav>
+
+          <a href="#contact" class="header-cta magnet">Book a build</a>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="hero">
+          <div class="container hero-grid">
+            <div class="hero-copy reveal">
+              <p class="eyebrow">Formula assembly specialists</p>
+              <h1>
+                Build for <span class="accent">speed</span><br />
+                under pressure.
+              </h1>
+              <p class="lead">
+                We engineer, assemble and tune complete chassis systems for F1, F2 and F3 programs —
+                with tolerances measured in microns and a production rhythm built for race weekend pressure.
+              </p>
+
+              <div class="actions">
+                <a class="button primary magnet" href="#contact">Request consultation</a>
+                <a class="button secondary magnet" href="#capabilities">View capabilities</a>
+              </div>
+
+              <div class="mini-metrics" aria-label="company stats">
+                <div class="metric">
+                  <strong>0.05</strong>
+                  <span>mm tolerance</span>
+                </div>
+                <div class="metric">
+                  <strong>340+</strong>
+                  <span>cars assembled</span>
+                </div>
+                <div class="metric">
+                  <strong>12</strong>
+                  <span>title campaigns</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-visual reveal">
+              <div class="visual-card">
+                <div class="visual-topbar">
+                  <div class="dots" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <span>Monocoque / chassis build</span>
+                </div>
+
+                <div class="car-wrap">
+                  <svg class="car-svg" viewBox="0 0 760 460" role="img" aria-label="Aggressive racing car">
+                    <defs>
+                      <linearGradient id="bodyMainGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+                        <stop offset="0%" stop-color="#ff3f3d" />
+                        <stop offset="16%" stop-color="#ee120d" />
+                        <stop offset="62%" stop-color="#9d0908" />
+                        <stop offset="100%" stop-color="#14171c" />
+                      </linearGradient>
+                    </defs>
+
+                    <ellipse class="ground-glow" cx="382" cy="362" rx="250" ry="42" />
+
+                    <g>
+                      <path class="body-main" d="M92 322 L146 278 L214 247 L293 223 L414 210 L528 220 L612 238 L682 268 L715 295 L693 320 L642 334 L566 346 L448 352 L308 352 L214 344 L138 336 Z" />
+
+                      <path class="body-accent" d="M166 292 L228 257 L287 240 L373 232 L480 236 L558 247 L604 267 L586 293 L472 301 L314 303 L208 299 Z" />
+
+                      <path class="body-detail" d="M262 240 L331 220 L423 218 L502 225 L556 242 L518 254 L395 261 L292 259 Z" />
+
+                      <path class="glass" d="M312 226 L370 212 L446 212 L485 228 L446 252 L332 254 Z" />
+
+                      <path class="body-detail" d="M82 323 L136 300 L120 309 L76 318 Z" />
+                      <path class="body-detail" d="M636 267 L696 260 L722 278 L690 291 L634 286 Z" />
+
+                      <path class="body-main" d="M454 203 L520 168 L600 166 L624 178 L578 214 L486 214 Z" />
+
+                      <path class="body-accent" d="M126 306 L174 294 L182 324 L138 336 L112 322 Z" />
+                      <path class="body-accent" d="M602 308 L656 302 L690 326 L636 340 L600 328 Z" />
+
+                      <path class="outline" d="M128 323 L202 313 L278 304 L383 306 L494 308 L592 317 L649 323" />
+                      <path class="outline" d="M212 260 L314 252 L388 247 L504 252 L575 258" />
+                      <path class="outline" d="M300 224 L356 210 L440 212 L491 224" />
+
+                      <path class="secondary" d="M188 273 L304 264 L392 260 L474 262 L560 274" />
+                      <path class="secondary" d="M256 243 L340 235 L430 236 L500 244" />
+
+                      <g>
+                        <circle class="rim" cx="170" cy="336" r="42" />
+                        <circle class="rim-inner" cx="170" cy="336" r="25" />
+                        <path class="primary" d="M170 294 L170 378 M128 336 L212 336 M138 306 L202 366 M138 366 L202 306" />
+                      </g>
+
+                      <g>
+                        <circle class="rim" cx="586" cy="339" r="42" />
+                        <circle class="rim-inner" cx="586" cy="339" r="25" />
+                        <path class="primary" d="M586 297 L586 381 M544 339 L628 339 M554 309 L618 369 M554 369 L618 309" />
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+
+                <div class="telemetry" aria-label="Telemetry status">
+                  <div class="telemetry-row">
+                    <span>DFR</span>
+                    <div class="telemetry-bar" style="--bar-width: 78%;"><span></span></div>
+                    <strong>78%</strong>
+                  </div>
+                  <div class="telemetry-row">
+                    <span>LOAD</span>
+                    <div class="telemetry-bar" style="--bar-width: 92%;"><span></span></div>
+                    <strong>92%</strong>
+                  </div>
+                  <div class="telemetry-row">
+                    <span>TILT</span>
+                    <div class="telemetry-bar" style="--bar-width: 64%;"><span></span></div>
+                    <strong>64%</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="ticker" aria-label="telemetry ticker">
+          <div class="ticker-track">
+            <span>F1 assembly</span>
+            <span>F2 prep</span>
+            <span>F3 sprint kits</span>
+            <span>Monocoque fabrication</span>
+            <span>Telemetry calibration</span>
+            <span>Carbon validation</span>
+            <span>F1 assembly</span>
+            <span>F2 prep</span>
+            <span>F3 sprint kits</span>
+            <span>Monocoque fabrication</span>
+            <span>Telemetry calibration</span>
+            <span>Carbon validation</span>
+          </div>
+        </div>
+
+        <section class="section" id="about">
+          <div class="container">
+            <div class="section-head reveal">
+              <div>
+                <p class="eyebrow">Who we are</p>
+                <h2 class="section-title">Precision built for the pressure of race week.</h2>
+              </div>
+              <p>
+                MONOCOQUE is a specialist assembly partner for motorsport teams demanding accurate, repeatable chassis work
+                under extreme schedules, strict regulations and high-stakes inspection standards.
+              </p>
+            </div>
+
+            <div class="three-col">
+              <article class="info-card reveal">
+                <div class="index">01 / design</div>
+                <h3>Structure-first engineering</h3>
+                <p>From concept review to load path validation, we ensure every assembly decision preserves rigidity, balance and safety.</p>
+              </article>
+
+              <article class="info-card reveal">
+                <div class="index">02 / build</div>
+                <h3>Precision fabrication</h3>
+                <p>Composite layups, mounting points, front wing interfaces and monocoque alignment are handled with exact tolerances.</p>
+              </article>
+
+              <article class="info-card reveal">
+                <div class="index">03 / race</div>
+                <h3>Track-ready delivery</h3>
+                <p>We prepare the car for event-level inspection, rapid turnaround and technical consistency across every race weekend.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="capabilities">
+          <div class="container capability-grid">
+            <div class="stack-panel reveal">
+              <p class="eyebrow">Capabilities</p>
+              <h3>Full-spectrum chassis preparation.</h3>
+              <ul class="stack-list">
+                <li>Assembly of front and rear structure packages</li>
+                <li>Carbon and composite manufacturing support</li>
+                <li>mounted aerodynamic engineering interfaces</li>
+                <li>Telemetry and sensor installation integration</li>
+                <li>Trackside service and rapid reconfiguration</li>
+              </ul>
+            </div>
+
+            <div class="capability-cards reveal">
+              <article class="capability-card">
+                <span class="tag">F1</span>
+                <h4>Top-tier race assembly</h4>
+                <p>For elite teams operating at the edge of the rulebook, where repeatability and speed are equally vital.</p>
+              </article>
+
+              <article class="capability-card">
+                <span class="tag">F2</span>
+                <h4>Performance tuning</h4>
+                <p>Reliable chassis revisions, compliance prep and race weekend flexibility for high-volume seasonal programs.</p>
+              </article>
+
+              <article class="capability-card">
+                <span class="tag">F3</span>
+                <h4>Agile support</h4>
+                <p>Faster iteration cycles with structured quality control and rapid turnaround from inspection to track release.</p>
+              </article>
+
+              <article class="capability-card">
+                <span class="tag">R&D</span>
+                <h4>Prototype systems</h4>
+                <p>Testing, mounting solutions and engineering support for new car concepts, setup validation and data capture.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="process">
+          <div class="container">
+            <div class="section-head reveal">
+              <div>
+                <p class="eyebrow">How we work</p>
+                <h2 class="section-title">A six-step build cycle designed for race pace.</h2>
+              </div>
+            </div>
+
+            <div class="process-grid">
+              <article class="process-step reveal" data-step="01">
+                <h4>Scan & assess</h4>
+                <p>We review geometry, wear, compliance notes and assembly history to define exact tolerances before build begins.</p>
+              </article>
+
+              <article class="process-step reveal" data-step="02">
+                <h4>Prepare tooling</h4>
+                <p>Fixture alignment, mounting jigs and production checks are staged for each component and race specification.</p>
+              </article>
+
+              <article class="process-step reveal" data-step="03">
+                <h4>Assembly</h4>
+                <p>Monocoque sections and structural elements are built in a controlled process with constant inspection checkpoints.</p>
+              </article>
+
+              <article class="process-step reveal" data-step="04">
+                <h4>Load validation</h4>
+                <p>Stress data and chassis behavior are monitored against the target setup and race package requirements.</p>
+              </article>
+
+              <article class="process-step reveal" data-step="05">
+                <h4>Telemetry fit</h4>
+                <p>Sensors, wiring, brackets and data interfaces are calibrated to match the performance strategy and driver inputs.</p>
+              </article>
+
+              <article class="process-step reveal" data-step="06">
+                <h4>Track release</h4>
+                <p>Final sign-off includes quality validation, volume checks and rapid support for on-site race operations.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="stats-band section" aria-label="company metrics">
+          <div class="container stats-grid">
+            <div class="stat-box reveal">
+              <div class="count"><span class="count-value" data-target="0.05">0</span><span class="unit"> mm</span></div>
+              <span>assembly tolerance</span>
+            </div>
+            <div class="stat-box reveal">
+              <div class="count"><span class="count-value" data-target="340">0</span><span class="unit">+</span></div>
+              <span>cars assembled</span>
+            </div>
+            <div class="stat-box reveal">
+              <div class="count"><span class="count-value" data-target="12">0</span><span class="unit">x</span></div>
+              <span>title campaigns</span>
+            </div>
+            <div class="stat-box reveal">
+              <div class="count"><span class="count-value" data-target="24">0</span><span class="unit">/7</span></div>
+              <span>trackside support</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="series">
+          <div class="container">
+            <div class="section-head reveal">
+              <div>
+                <p class="eyebrow">Series we support</p>
+                <h2 class="section-title">Formula programs engineered for every rung of the ladder.</h2>
+              </div>
+            </div>
+
+            <div class="series-grid">
+              <article class="series-card reveal">
+                <div class="badge">Elite</div>
+                <h3>F1</h3>
+                <ul>
+                  <li><span>Chassis assembly</span> <strong>Full</strong></li>
+                  <li><span>Monocoque fit</span> <strong>±0.05 mm</strong></li>
+                  <li><span>Trackside help</span> <strong>24/7</strong></li>
+                </ul>
+              </article>
+
+              <article class="series-card reveal">
+                <div class="badge">Professional</div>
+                <h3>F2</h3>
+                <ul>
+                  <li><span>Setup optimization</span> <strong>High</strong></li>
+                  <li><span>Parts integration</span> <strong>Rapid</strong></li>
+                  <li><span>Inspection flow</span> <strong>Live</strong></li>
+                </ul>
+              </article>
+
+              <article class="series-card reveal">
+                <div class="badge">Development</div>
+                <h3>F3</h3>
+                <ul>
+                  <li><span>Fast iteration</span> <strong>Agile</strong></li>
+                  <li><span>Component prep</span> <strong>Precise</strong></li>
+                  <li><span>Data capture</span> <strong>Full</strong></li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="contact">
+          <div class="container contact-wrap">
+            <div class="contact-copy reveal">
+              <p class="eyebrow">Contact</p>
+              <h3>Build the next race-winning setup.</h3>
+              <p>
+                Tell us about the series, timeline and technical requirements. We will map out the assembly and delivery scope.
+              </p>
+
+              <div class="contact-meta">
+                <div>
+                  <span>Email</span>
+                  <strong>contact@monocoque-racing.com</strong>
+                </div>
+                <div>
+                  <span>Workshop</span>
+                  <strong>Rotterdam / Valencia / Milton Keynes</strong>
+                </div>
+                <div>
+                  <span>Response time</span>
+                  <strong>Within 12 hours</strong>
+                </div>
+              </div>
+            </div>
+
+            <form class="contact-form reveal" id="contactForm">
+              <div class="field-row">
+                <div class="field">
+                  <label for="name">Name</label>
+                  <input id="name" name="name" type="text" placeholder="Your name" required />
+                </div>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" placeholder="you@team.com" required />
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="series">Series</label>
+                  <input id="series" name="series" type="text" placeholder="F1 / F2 / F3" required />
+                </div>
+                <div class="field">
+                  <label for="timeline">Timeline</label>
+                  <input id="timeline" name="timeline" type="text" placeholder="Race weekend / prototype" required />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="message">Project brief</label>
+                <textarea id="message" name="message" rows="5" placeholder="Describe your build needs, timeline and technical scope..." required></textarea>
+              </div>
+
+              <div class="submit-row">
+                <button class="button primary magnet" type="submit">Send enquiry</button>
+                <span class="form-status" aria-live="polite">No backend connected yet.</span>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="container footer-inner">
+          <div class="footer-copy">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>MONOCOQUE</span>
+          </div>
+          <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#capabilities">Capabilities</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const revealItems = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16 });
+
+      revealItems.forEach((item) => observer.observe(item));
+
+      const countValues = document.querySelectorAll('.count-value');
+      const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const el = entry.target;
+          const target = Number(el.dataset.target || 0);
+          const decimals = target % 1 !== 0 ? 2 : 0;
+          const duration = 1200;
+          const start = performance.now();
+
+          function tick(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const value = target * eased;
+            el.textContent = Number(value).toFixed(decimals);
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+
+          requestAnimationFrame(tick);
+          countObserver.unobserve(el);
+        });
+      }, { threshold: 0.45 });
+
+      countValues.forEach((el) => countObserver.observe(el));
+
+      const cursor = document.querySelector('.cursor');
+      window.addEventListener('pointermove', (event) => {
+        cursor.style.left = event.clientX + 'px';
+        cursor.style.top = event.clientY + 'px';
+      });
+
+      document.querySelectorAll('.magnet').forEach((button) => {
+        button.addEventListener('pointermove', (event) => {
+          const rect = button.getBoundingClientRect();
+          const offsetX = event.clientX - rect.left - rect.width / 2;
+          const offsetY = event.clientY - rect.top - rect.height / 2;
+          button.style.transform = `translate(${offsetX * 0.12}px, ${offsetY * 0.12}px)`;
+          cursor.classList.add('active');
+        });
+
+        button.addEventListener('pointerleave', () => {
+          button.style.transform = '';
+          cursor.classList.remove('active');
+        });
+      });
+
+      const form = document.getElementById('contactForm');
+      const status = document.querySelector('.form-status');
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        status.textContent = 'Request received — the backend will be connected later.';
+        status.style.color = '#dfe7f5';
+        form.reset();
+      });
+    </script>
+</body>
+</html>
+<body>
+    <div>
+
+
+
+        <nav >
+
+
+
+
+        </nav>
+    </div>
+</body>
+</html>
